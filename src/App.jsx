@@ -12,6 +12,7 @@ import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 import Navbar from './components/Navbar'
 import axios from 'axios'
+import ProtectedRoute from './components/ProtectedRoute'
 function App() {
 
 useEffect(()=>{
@@ -35,11 +36,11 @@ useEffect(()=>{
       <Navbar/>
       <Routes>
         <Route path='/login' element={<Login/>}></Route>
-        <Route path='/dashboard' element={<Dashboard/>}></Route>
-        <Route path='/leads' element={<Leads/>}></Route>
-        <Route path='/leads/create' element={<CreateLead/>}></Route>
+        <Route path='/dashboard' element={<ProtectedRoute><Dashboard/></ProtectedRoute>}></Route>
+        <Route path='/leads' element={<ProtectedRoute><Leads/></ProtectedRoute>}></Route>
+        <Route path='/leads/create' element={<ProtectedRoute><CreateLead/></ProtectedRoute>}></Route>
       </Routes>
-    </BrowserRouter>
+    </BrowserRouter>  
   )
 }
 

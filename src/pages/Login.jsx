@@ -1,5 +1,6 @@
 import { useState } from "react";
-import api from "../services/api";
+import { useNavigate } from "react-router-dom";
+import { login } from "../services/authService";
 
 function Login(){
 const [formData, setFormData] = useState({
@@ -14,13 +15,17 @@ setFormData({
 });
 };
 
+    const navigate = useNavigate();
+
    const handleSubmit = async (e) => {
         e.preventDefault();
        try{
-         const response = await api.post("/auth/login", formData)
-         console.log(response.data.data.token);
-         const token = response.data.data.token;
-         localStorage.setItem("token", token);
+         await login(
+                formData.email,
+                formData.password
+            );
+
+            navigate("/dashboard");
        }
        catch(error){
          console.error(error);
